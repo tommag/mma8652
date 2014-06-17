@@ -81,11 +81,11 @@
 
 //F_SETUP FIFO Setup register (0x09)
 //Bits 7-6 : F_MODE
-#define MMA8652_F_MODE_MSK				(0b11<<6)	//FIFO mode bitmask
-#define MMA8652_F_MODE_FIFO_DISABLED 	(0b00<<6)	//FIFO disabled (default)
-#define MMA8652_F_MODE_FIFO_CIRCULAR 	(0b01<<6)	//Circular buffer mode
-#define MMA8652_F_MODE_FIFO_STOP 		(0b10<<6)	//FIFO stops accepting samples on overflow
-#define MMA8652_F_MODE_FIFO_TRIGGER		(0b11<<6)	//Trigger mode
+#define MMA8652_F_MODE_MSK				(0x3<<6)	//FIFO mode bitmask
+#define MMA8652_F_MODE_FIFO_DISABLED 	(0x0<<6)	//FIFO disabled (default)
+#define MMA8652_F_MODE_FIFO_CIRCULAR 	(0x1<<6)	//Circular buffer mode
+#define MMA8652_F_MODE_FIFO_STOP 		(0x2<<6)	//FIFO stops accepting samples on overflow
+#define MMA8652_F_MODE_FIFO_TRIGGER		(0x3<<6)	//Trigger mode
 //Bits 5-0 : F_WMRK
 #define MMA8652_F_SETUP_F_WMRK_MSK		(0x3F)	//FIFO event sample count watermark
 
@@ -96,10 +96,10 @@
 #define MMA8652_TRIG_CFG_Trig_TRANS		(1<<5)	//Transient interrupt trigger
 
 //SYSMOD System mode register (0x0B)
-#define MMA8652_SYSMOD_MSK				(0b11)	//System mode bitmask
-#define MMA8652_SYSMOD_STANDBY			(0b00)	//System mode : STANDBY (default)
-#define MMA8652_SYSMOD_WAKE				(0b01)	//System mode : WAKE
-#define MMA8652_SYSMOD_SLEEP			(0b10)	//System mode : SLEEP
+#define MMA8652_SYSMOD_MSK				(0x3)	//System mode bitmask
+#define MMA8652_SYSMOD_STANDBY			(0x0)	//System mode : STANDBY (default)
+#define MMA8652_SYSMOD_WAKE				(0x1)	//System mode : WAKE
+#define MMA8652_SYSMOD_SLEEP			(0x2)	//System mode : SLEEP
 #define MMA8652_SYSMOD_FGT_MSK			(0x1F<<2) //number of samples since gate error
 #define MMA8652_SYSMOD_FGERR			(1<<7)	//FIFO gate error flag
 
@@ -113,10 +113,10 @@
 #define MMA8652_INT_SRC_ASLP			(1<<7)	//Auto-SLEEP/WAKE interrupt status
 
 //XYZ_DATA_CFG register (0x0E)
-#define MMA8652_FS_RANGE_MSK			(0b11)	//Full-scale range selection bitmask
-#define MMA8652_FS_RANGE_2G				(0b00)	//Full-scale range +/- 2g (default)
-#define MMA8652_FS_RANGE_4G				(0b01)	//Full-scale range +/- 4g
-#define MMA8652_FS_RANGE_8G				(0b10)	//Full-scale range +/- 8g
+#define MMA8652_FS_RANGE_MSK			(0x3)	//Full-scale range selection bitmask
+#define MMA8652_FS_RANGE_2G				(0x0)	//Full-scale range +/- 2g (default)
+#define MMA8652_FS_RANGE_4G				(0x1)	//Full-scale range +/- 4g
+#define MMA8652_FS_RANGE_8G				(0x2)	//Full-scale range +/- 8g
 
 #define MMA8652_XYZ_DATA_CFG_HPF_OUT	(1<<4)	//Enable high-pass filter on output data
 
@@ -128,11 +128,11 @@
 //PL_STATUS Portrait/Landscape status register(0x10)
 #define MMA8652_PL_STATUS_BAFRO			(1<<0)	//Back or Front orientation
 
-#define MMA8652_PL_STATUS_LAPO_MSK		(0b11<<1) //Land/portrait orientation bitmask
-#define MMA8652_PL_STATUS_LAPO_PORTRAIT_UP 		(0b00<<1)
-#define MMA8652_PL_STATUS_LAPO_PORTRAIT_DOWN 	(0b01<<1)
-#define MMA8652_PL_STATUS_LAPO_LANDSCAPE_RIGHT 	(0b10<<1)
-#define MMA8652_PL_STATUS_LAPO_LANDSCAPE_LEFT	(0b11<<1)
+#define MMA8652_PL_STATUS_LAPO_MSK		(0x3<<1) //Land/portrait orientation bitmask
+#define MMA8652_PL_STATUS_LAPO_PORTRAIT_UP 		(0x0<<1)
+#define MMA8652_PL_STATUS_LAPO_PORTRAIT_DOWN 	(0x1<<1)
+#define MMA8652_PL_STATUS_LAPO_LANDSCAPE_RIGHT 	(0x2<<1)
+#define MMA8652_PL_STATUS_LAPO_LANDSCAPE_LEFT	(0x3<<1)
 
 #define MMA8652_PL_STATUS_LO			(1<<6)	//Z-tilt angle lockout
 #define MMA8652_PL_STATUS_NEWLP			(1<<7)	//L/P status change flag
@@ -143,7 +143,7 @@
 
 //PL_BF_ZCOMP Back/front and Z compensation register (0x13)
 #define MMA8652_PL_BF_ZCOMP_ZLOCK_MSK	(0x07)	//Z-lock angle threshold, see Table 43 p.34
-#define MMA8652_PL_BF_ZCOMP_BKFR		(0b11<<6) //Back/front trip angle threshold, see Table 44 p.34
+#define MMA8652_PL_BF_ZCOMP_BKFR		(0x3<<6) //Back/front trip angle threshold, see Table 44 p.34
 
 //PL_THS_REG P/L threshold and hysteresis register (0x14)
 #define MMA8652_PL_HYS_MSK				(0x07)	//Hysteresis value, see Table 48 p.35
@@ -216,36 +216,36 @@
 #define MMA8652_CTRL_REG1_ACTIVE		(1<<0)	//STANDBY/ACTIVE mode selection
 #define MMA8652_CTRL_REG1_F_READ		(1<<1)	//Fast read mode (single byte data format)
 
-#define MMA8652_CTRL_REG1_DATARATE_MSK	(0b111<<3) //Data rate selection bitmask
-#define MMA8652_CTRL_REG1_DATARATE_800_HZ	(0b000<<3)	//800Hz 	1.25ms (default)
-#define MMA8652_CTRL_REG1_DATARATE_400_HZ	(0b001<<3)	//400Hz 	2.5ms 
-#define MMA8652_CTRL_REG1_DATARATE_200_HZ	(0b010<<3)	//200Hz 	5ms
-#define MMA8652_CTRL_REG1_DATARATE_100_HZ	(0b011<<3)	//100Hz 	10ms
-#define MMA8652_CTRL_REG1_DATARATE_50_HZ	(0b100<<3)	//50Hz 		20ms
-#define MMA8652_CTRL_REG1_DATARATE_12_5_HZ	(0b101<<3)	//12.5Hz 	80ms
-#define MMA8652_CTRL_REG1_DATARATE_6_25_HZ	(0b110<<3)	//6.25Hz 	160ms
-#define MMA8652_CTRL_REG1_DATARATE_1_56_HZ	(0b111<<3)	//1.56Hz 	640ms
+#define MMA8652_CTRL_REG1_DATARATE_MSK	(0x7<<3) //Data rate selection bitmask
+#define MMA8652_CTRL_REG1_DATARATE_800_HZ	(0x0<<3)	//800Hz 	1.25ms (default)
+#define MMA8652_CTRL_REG1_DATARATE_400_HZ	(0x1<<3)	//400Hz 	2.5ms 
+#define MMA8652_CTRL_REG1_DATARATE_200_HZ	(0x2<<3)	//200Hz 	5ms
+#define MMA8652_CTRL_REG1_DATARATE_100_HZ	(0x3<<3)	//100Hz 	10ms
+#define MMA8652_CTRL_REG1_DATARATE_50_HZ	(0x4<<3)	//50Hz 		20ms
+#define MMA8652_CTRL_REG1_DATARATE_12_5_HZ	(0x5<<3)	//12.5Hz 	80ms
+#define MMA8652_CTRL_REG1_DATARATE_6_25_HZ	(0x6<<3)	//6.25Hz 	160ms
+#define MMA8652_CTRL_REG1_DATARATE_1_56_HZ	(0x7<<3)	//1.56Hz 	640ms
 
-#define MMA8652_CTRL_REG1_ASLP_RATE_MSK	(0b11<<6) //Data rate when in SLEEP mode bitmask
-#define MMA8652_CTRL_REG1_ASLP_RATE_50_HZ	(0b00<<6)	//50Hz
-#define MMA8652_CTRL_REG1_ASLP_RATE_12_5_HZ	(0b01<<6)	//12.5Hz
-#define MMA8652_CTRL_REG1_ASLP_RATE_6_25_HZ	(0b10<<6)	//6.25Hz
-#define MMA8652_CTRL_REG1_ASLP_RATE_1_56_HZ	(0b11<<6)	//1.56Hz
+#define MMA8652_CTRL_REG1_ASLP_RATE_MSK	(0x3<<6) //Data rate when in SLEEP mode bitmask
+#define MMA8652_CTRL_REG1_ASLP_RATE_50_HZ	(0x0<<6)	//50Hz
+#define MMA8652_CTRL_REG1_ASLP_RATE_12_5_HZ	(0x1<<6)	//12.5Hz
+#define MMA8652_CTRL_REG1_ASLP_RATE_6_25_HZ	(0x2<<6)	//6.25Hz
+#define MMA8652_CTRL_REG1_ASLP_RATE_1_56_HZ	(0x3<<6)	//1.56Hz
 
 //CTRL_REG2 System Control 2 register (0x2B)
-#define MMA8652_CTRL_REG2_MODS_MSK		(0b11<<0)	//ACTIVE mode power scheme selection bitmask (oversampling mode)
-#define MMA8652_CTRL_REG2_MODS_NORMAL	(0b00<<0)	//Normal mode - see Table 101 p.54
-#define MMA8652_CTRL_REG2_MODS_LNLP		(0b01<<0)	//Low noise low power mode
-#define MMA8652_CTRL_REG2_MODS_HI_RES	(0b10<<0)	//High resolution mode
-#define MMA8652_CTRL_REG2_MODS_LP		(0b11<<0)	//Low power mode
+#define MMA8652_CTRL_REG2_MODS_MSK		(0x3<<0)	//ACTIVE mode power scheme selection bitmask (oversampling mode)
+#define MMA8652_CTRL_REG2_MODS_NORMAL	(0x0<<0)	//Normal mode - see Table 101 p.54
+#define MMA8652_CTRL_REG2_MODS_LNLP		(0x1<<0)	//Low noise low power mode
+#define MMA8652_CTRL_REG2_MODS_HI_RES	(0x2<<0)	//High resolution mode
+#define MMA8652_CTRL_REG2_MODS_LP		(0x3<<0)	//Low power mode
 
 #define MMA8652_CTRL_REG2_SLPE			(1<<2)		//Auto-SLEEP enable
 
-#define MMA8652_CTRL_REG2_SMODS_MSK		(0b11<<3)	//SLEEP mode power scheme selection bitmask (oversampling mode)
-#define MMA8652_CTRL_REG2_SMODS_NORMAL	(0b00<<3)	//Normal mode
-#define MMA8652_CTRL_REG2_SMODS_LNLP	(0b01<<3)	//Low noise low power mode
-#define MMA8652_CTRL_REG2_SMODS_HI_RES	(0b10<<3)	//High resolution mode
-#define MMA8652_CTRL_REG2_SMODS_LP		(0b11<<3)	//Low power mode
+#define MMA8652_CTRL_REG2_SMODS_MSK		(0x3<<3)	//SLEEP mode power scheme selection bitmask (oversampling mode)
+#define MMA8652_CTRL_REG2_SMODS_NORMAL	(0x0<<3)	//Normal mode
+#define MMA8652_CTRL_REG2_SMODS_LNLP	(0x1<<3)	//Low noise low power mode
+#define MMA8652_CTRL_REG2_SMODS_HI_RES	(0x2<<3)	//High resolution mode
+#define MMA8652_CTRL_REG2_SMODS_LP		(0x3<<3)	//Low power mode
 
 #define MMA8652_CTRL_REG2_RST			(1<<6)		//Software reset
 #define MMA8652_CTRL_REG2_ST			(1<<7)		//Self-test enable
@@ -269,13 +269,13 @@
 #define MMA8652_CTRL_REG4_INT_EN_ASLP	(1<<7)		//Auto-SLEEP/WAKE interrupt enable
 
 //CTRL_REG5 System Control 5 register (0x2E)
-#define MMA8652_CTRL_REG4_INT_CFG_DRDY	(1<<0)		//Data Ready interrupt config (0: routed to INT1, 1: routed to INT2)
-#define MMA8652_CTRL_REG4_INT_CFG_FF_MT	(1<<2)		//FF/MT interrupt config
-#define MMA8652_CTRL_REG4_INT_CFG_PULSE	(1<<3)		//Pulse interrupt config
-#define MMA8652_CTRL_REG4_INT_CFG_LNDPR	(1<<4)		//Orientation interrupt config
-#define MMA8652_CTRL_REG4_INT_CFG_TRANS	(1<<5)		//Transient interrupt config
-#define MMA8652_CTRL_REG4_INT_CFG_FIFO	(1<<6)		//FIFO interrupt config
-#define MMA8652_CTRL_REG4_INT_CFG_ASLP	(1<<7)		//Auto-SLEEP/WAKE interrupt config
+#define MMA8652_CTRL_REG5_INT_CFG_DRDY	(1<<0)		//Data Ready interrupt config (0: routed to INT1, 1: routed to INT2)
+#define MMA8652_CTRL_REG5_INT_CFG_FF_MT	(1<<2)		//FF/MT interrupt config
+#define MMA8652_CTRL_REG5_INT_CFG_PULSE	(1<<3)		//Pulse interrupt config
+#define MMA8652_CTRL_REG5_INT_CFG_LNDPR	(1<<4)		//Orientation interrupt config
+#define MMA8652_CTRL_REG5_INT_CFG_TRANS	(1<<5)		//Transient interrupt config
+#define MMA8652_CTRL_REG5_INT_CFG_FIFO	(1<<6)		//FIFO interrupt config
+#define MMA8652_CTRL_REG5_INT_CFG_ASLP	(1<<7)		//Auto-SLEEP/WAKE interrupt config
 
 
 //Hardware-dependent functions that must be defined by the user
