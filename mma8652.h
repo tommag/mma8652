@@ -7,6 +7,8 @@
 #define MMA8652_H
 
 #include <stdint.h>
+#include <stdbool.h>
+
 
 #define MMA8652_I2C_ADDR				(0x1D) //7-bit I2C address
 #define MMA8652_DEVICE_ID				(0x4A) //Device ID, to be compared with WHO_AM_I register
@@ -274,6 +276,49 @@
 #define MMA8652_CTRL_REG4_INT_CFG_TRANS	(1<<5)		//Transient interrupt config
 #define MMA8652_CTRL_REG4_INT_CFG_FIFO	(1<<6)		//FIFO interrupt config
 #define MMA8652_CTRL_REG4_INT_CFG_ASLP	(1<<7)		//Auto-SLEEP/WAKE interrupt config
+
+
+//Hardware-dependent functions that must be defined by the user
+//--------------------------------------------------------------
+bool mma8652_i2c_init(void);  //Init I2C hardware module - return the result of the operation (success/failure)
+bool mma8652_i2c_register_write(uint8_t register_address, uint8_t value); //write a single register 
+
+/**@brief Read multiple registers 
+ * 
+ * @param[in] first_reg_address address of the first register to read
+ * @param[in] p_destination 	pointer to an array of bytes to store read values in
+ * @param[in] num_bytes			the number of bytes to read
+ *
+ * @return true if the operation has succeeded
+ */
+bool mma8652_i2c_register_read(uint8_t first_reg_address, uint8_t * p_destination, uint8_t num_bytes);
+
+
+//Hardware_independent functions
+//-------------------------------
+/**@brief Init MMA8652 operation
+ *
+ * @return true if the init has succeeded
+ */
+bool mma8652_init(void); 
+
+/**@brief Check the device ID by comparing the content of the WHO_AM_I register and the stored ID
+ *
+ * @return true if the ID is correct
+ */
+bool mma8652_verify_device_id(void);
+
+/**@brief Put the device in STANDBY mode
+ *
+ * @return the result of the operation
+ */
+bool mma8652_standby(void);
+
+/**@brief Put the device in ACTIVE mode
+ *
+ * @return the result of the operation
+ */
+bool mma8652_active(void);
 
 
 #endif //MMA8652_H
